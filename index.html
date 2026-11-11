@@ -219,6 +219,28 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
   });
   if(!d.events.length)timeline.append(el('div','sa-empty','此日行程資料待補充'));
   content.append(timeline);
+  if(active===0){
+   const food=el('section','sa-food-route');
+   food.append(el('div','sa-food-head','上海陸家嘴美食路線'));
+   food.append(el('div','sa-food-hours','⏰ 營業時間參考：10:00–22:00'));
+   const stops=[
+    ['10:30','正大廣場（陸家嘴站 1／2 號口）','6F 點都德：紅米腸、蝦餃','3F 好利來：半熟乳酪','B1 美食街：海南雞飯'],
+    ['12:30','陸家嘴環形天橋','拍攝東方明珠與陸家嘴三件套'],
+    ['14:00','上海中心（地下連通道）','地下層大食代：手抓飯、大盤雞'],
+    ['17:00','陸家嘴中心（商城路站）','9F 香港龍鳳樓：港式蒸點'],
+    ['19:30','世紀匯（世紀大道站 8／11／12 號口）','B2 1192弄：生煎包、小餛飩']
+   ];
+   const grid=el('div','sa-food-stops');
+   stops.forEach((stop,i)=>{
+    const card=el('article','sa-food-stop');
+    card.append(el('div','sa-food-time',stop[0]),el('div','sa-food-place',stop[1]));
+    stop.slice(2).forEach(item=>card.append(el('div','sa-food-item','• '+item)));
+    grid.append(card);
+   });
+   food.append(grid);
+   food.append(el('div','sa-food-note','店鋪樓層、營業時間與實際供應以當日現場公告為準；可依食量與逛街時間彈性取捨。'));
+   content.append(food);
+  }
   const links=el('div','sa-detail-links');
   const map=el('button','sa-action sa-map-action','查看當日景點地圖');map.type='button';map.addEventListener('click',()=>window.open(mapUrl(d.title),'_blank','noopener'));links.append(map);const amapDay=el('button','sa-action sa-amap-action','高德地圖');amapDay.type='button';amapDay.addEventListener('click',()=>window.open(amapUrl(d.title),'_blank','noopener'));links.append(amapDay);
   content.append(links);
@@ -239,4 +261,17 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  document.body.insertBefore(document.getElementById('shanghai-app'),document.body.firstChild);
  render();
 })();
-</script><style id="TAB-MINISO-RED-FIX">#sa-tabs .sa-tab-miniso{display:block!important;color:#c62828!important;background:#fff0f0!important;border:1px solid #efb4b4!important;font-weight:900!important;opacity:1!important;text-shadow:none!important}#sa-tabs .sa-tab.active .sa-tab-miniso{color:#c62828!important;background:#fff0f0!important;border-color:#efb4b4!important}#sa-tabs .sa-tab-miniso{white-space:normal!important;text-align:center!important}</style></body></html>
+</script><style id="TAB-MINISO-RED-FIX">#sa-tabs .sa-tab-miniso{display:block!important;color:#c62828!important;background:#fff0f0!important;border:1px solid #efb4b4!important;font-weight:900!important;opacity:1!important;text-shadow:none!important}#sa-tabs .sa-tab.active .sa-tab-miniso{color:#c62828!important;background:#fff0f0!important;border-color:#efb4b4!important}#sa-tabs .sa-tab-miniso{white-space:normal!important;text-align:center!important}</style><style id="SA-LUJIAZUI-FOOD">
+.sa-food-route{margin:22px 0 28px;padding:20px 18px;background:#fffaf2;border:1px solid #e7d6b8;border-radius:16px}
+.sa-food-head{font-size:21px;font-weight:900;color:#933d38;margin-bottom:5px}
+.sa-food-hours{font-size:13px;color:#826b4d;margin-bottom:14px}
+.sa-food-stops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sa-food-stop{padding:13px 14px;background:#fff;border:1px solid #eadfce;border-radius:11px;min-width:0}
+.sa-food-time{font-size:13px;font-weight:900;color:#b45309}
+.sa-food-place{font-size:15px;font-weight:900;color:#263f37;margin:3px 0 6px}
+.sa-food-item{font-size:13px;line-height:1.55;color:#4e5d55}
+.sa-food-note{font-size:12px;color:#7a746a;line-height:1.55;margin-top:12px}
+@media(min-width:700px){.sa-food-stops{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){.sa-food-route{padding:16px 13px;margin:18px 0 24px}.sa-food-head{font-size:19px}.sa-food-stops{grid-template-columns:1fr 1fr;gap:8px}.sa-food-stop{padding:11px 10px}.sa-food-place{font-size:14px}.sa-food-item{font-size:12px;line-height:1.5}}
+</style></body></html>
+
