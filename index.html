@@ -65,6 +65,7 @@ document.getElementById('blog-close').onclick=close;modal.addEventListener('clic
 document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;const item=data.find(x=>name.includes(x.match));if(!item)return;row.querySelectorAll('a').forEach(a=>{if(a.closest('.food-detail'))return;a.addEventListener('click',e=>e.stopPropagation())});const detail=row.querySelector('.food-detail');if(detail)detail.style.display='none';const hint=document.createElement('span');hint.className='food-hint';hint.textContent='點整列看原始食記 ↗';row.querySelector('b').append(hint);row.onclick=e=>{if(e.target.closest('a'))return;open(item)};row.tabIndex=0;row.setAttribute('role','button');row.onkeydown=e=>{if(e.key==='Enter')open(item)}});
 })();</script><style>.daily-maps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.daily-map-card{border:1px solid #ded5c5;border-radius:9px;padding:10px;background:#fffaf1}.daily-map-card h4{margin:0 0 8px;font-size:20px}.daily-map{height:260px;border-radius:6px}.daily-map-note{font-size:14px;color:#66716b;margin-top:6px}html.tv .daily-map-card h4{font-size:25px}html.tv .daily-map{height:310px}html.tv .daily-map-note{font-size:18px}html.tv .side{height:auto!important;grid-template-rows:auto!important}html.tv .panel{overflow:visible!important}html.tv .daily-maps{gap:15px}@media(max-width:650px){.daily-maps{grid-template-columns:1fr}}</style><script>(function(){function init(){if(!window.L)return;const base=document.getElementById('realmap');if(!base)return;base.style.display='none';const parent=base.parentNode;const sets=[['11/13 週五｜抵達・陸家嘴',[['浦東機場',31.1443,121.8083],['長榮桂冠酒店',31.2056,121.6046],['陸家嘴（選去）',31.2397,121.4997]],'抵達→飯店→陸家嘴（選去）'],['11/14 週六｜廣富林・武康路',[['長榮桂冠酒店',31.2056,121.6046],['廣富林文化遺址',31.0596,121.2287],['武康大樓',31.2056,121.4383],['安福路',31.2105,121.444]],'上午廣富林；午後返回市區走武康路、安福路（交通時間較長）'],['11/15 週日｜玉佛禪寺・新天地',[['長榮桂冠酒店',31.2056,121.6046],['玉佛禪寺',31.2414,121.4451],['一大會址・新天地',31.2191,121.4755],['石庫門街區',31.2199,121.4764]],'江寧路站3號口步行至寺；搭13號線至一大會址·新天地站1號口'],['11/16 週一｜朱家角古鎮 ★',[['長榮桂冠酒店',31.2056,121.6046],['朱家角站',31.1019,121.0543],['朱家角古鎮',31.1075,121.0566],['放生橋',31.1098,121.0587]],'固定必去；地鐵2號線轉17號線'],['11/17 週二｜豫園・城隍廟・南京路・外灘',[['長榮桂冠酒店',31.2056,121.6046],['豫園',31.2272,121.4921],['城隍廟',31.2258,121.4928],['南京東路步行街',31.2335,121.4752],['外灘',31.2392,121.4904],['外白渡橋',31.245,121.4894]],'玉佛禪寺、吳江路保留為備案，不列入當日主線'],['11/18 週三｜張江・機場',[['長榮桂冠酒店（寄行李）',31.2056,121.6046],['長泰廣場',31.2062,121.602],['長榮桂冠酒店（取行李）',31.2056,121.6046],['浦東機場 T2',31.1443,121.8083]],'11:30 退房；15:30 取行李；16:00 出發']];const wrap=document.createElement('div');wrap.className='daily-maps';base.after(wrap);sets.forEach((s,i)=>{const c=document.createElement('div');c.className='daily-map-card';const h=document.createElement('h4');h.textContent=s[0];const el=document.createElement('div');el.className='daily-map';const n=document.createElement('div');n.className='daily-map-note';n.textContent=s[2]+'｜線條為景點先後示意，非實際導航';c.append(h,el,n);wrap.append(c);const m=L.map(el,{zoomControl:true,scrollWheelZoom:false});L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(m);const coords=[];s[1].forEach((p,j)=>{coords.push([p[1],p[2]]);L.marker([p[1],p[2]]).addTo(m).bindTooltip((j+1)+'. '+p[0],{permanent:true,direction:'top',opacity:.92})});L.polyline(coords,{color:i===3?'#933d38':'#287786',weight:3,dashArray:'6 6'}).addTo(m);m.fitBounds(coords,{padding:[55,55],maxZoom:14});setTimeout(()=>m.invalidateSize(),500)});const head=parent.querySelector('h3');if(head)head.innerHTML='每日行程地圖 <span>六天分開・路線順序示意</span>'}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();</script><script>(function(){const rainy=[{title:'陸家嘴室內商場',lead:'抵達後輕鬆用餐，避免淋雨',items:['12:35–14:35 BR752 桃園→浦東','16:00–18:00 入住、休息','18:30–20:00 國金中心／正大廣場晚餐','雨小再看陸家嘴夜景'],detail:'以室內餐飲與商場為主，不強求夜景'},{title:'廣富林室內展館 · 市區移動',lead:'雨天優先室內展館；午後武康路視雨勢縮短',items:['08:00 早餐；08:30 出發前往松江','10:00–12:30 廣富林水下博物館（確認開放）','12:30 午餐','13:30 返回市區','15:00 武康路、安福路短暫散步；大雨改室內咖啡','17:00 返飯店'],detail:'雨勢較大時取消午後戶外散步，交通與展館開放先確認'},{title:'玉佛禪寺 · 新天地室內飲茶',lead:'上午寺院、下午新天地；雨大縮短戶外散步',items:['09:30 早餐；10:30 出發','11:00–12:30 玉佛禪寺（視雨勢）','12:30 午餐','13:30 地鐵前往新天地','14:00–16:30 新天地室內商場、咖啡','17:00 晚餐、返飯店'],detail:'江寧路站3號口；13號線直達一大會址·新天地站1號口'},{title:'朱家角古鎮 · 雨中慢遊',lead:'11/16 固定必去；遇大雨縮短戶外',items:['09:30 早餐；10:30 出發','12:30 古鎮室內餐廳午餐','13:30 北大街遮蔽店舖、糕點','14:30 大清郵局／茶館（視營業）','16:00 視雨勢返程'],detail:'雨大或風強不搭船；課植園與遊船依現場開放調整'},{title:'豫園 · 室內商場',lead:'保留老城美食，縮短外灘步行',items:['09:30 早餐；10:30 出發','11:00 豫園商城、室內餐飲','13:30 午餐：小籠包等','14:30–17:00 南京路商場、咖啡','雨停再短訪外灘；否則早返飯店'],detail:'豫園園林是否入園視雨勢及預約情況'},{title:'長泰廣場 · 返程',lead:'就近室內活動，行李與航班不變',items:['09:30 早餐；11:30 退房寄行李','11:40–14:30 長泰廣場室內用餐採買','14:30–15:30 回飯店取行李','16:00 出發；17:00–17:30 抵浦東 T2','20:10–22:10 BR721 浦東→桃園'],detail:'野生動物園僅為另一獨立備案，雨天不啟用'}];const cards=[...document.querySelectorAll('.days>.day')];const original=cards.map(el=>({title:el.querySelector('h2').innerHTML,lead:el.querySelector('.lead').innerHTML,items:el.querySelector('.items').innerHTML,detail:el.querySelector('.detail').innerHTML}));function setMode(mode){const rain=mode==='rain';cards.forEach((el,i)=>{const x=rain?rainy[i]:original[i];el.querySelector('h2').innerHTML=x.title;el.querySelector('.lead').innerHTML=x.lead;el.querySelector('.items').innerHTML=rain?x.items.map(t=>'<div>'+t+'</div>').join(''):x.items;el.querySelector('.detail').innerHTML=x.detail;el.classList.toggle('rain-selected',rain);el.querySelector('.rain').style.display=rain?'none':''});document.querySelectorAll('.weather-switch button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));document.querySelector('.subtitle').textContent=rain?'雨天備案 × 室內優先 × 朱家角固定':'老街巷弄 × 水鄉古鎮 × 江畔夜色'}document.querySelectorAll('.weather-switch button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));setMode('sun')})();</script><script>(function(){const b=document.querySelector('.board'),m=document.querySelector('.metro-guide'),g=document.querySelector('.bodygrid');if(b&&m&&g)b.insertBefore(m,g)})();</script>
 <style>
+.sa-plan-heading{font-size:14px;font-weight:800;color:#2860f5;margin:12px 0 4px}.sa-lead{background:#eef3ff;border-left:4px solid #2860f5;border-radius:8px;padding:10px 12px;color:#43536a;line-height:1.65;margin:0 0 15px}
 #shanghai-app{min-height:100vh;background:#f7f8fa;color:#18212f;font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;padding:26px 18px 112px}
 #shanghai-app *{box-sizing:border-box}
 .sa-head{max-width:760px;margin:0 auto 22px;text-align:center}
@@ -140,6 +141,53 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
   '【外灘回飯店】從外灘沿南京東路步行街往西走，回到「南京東路」地鐵站；搭2號線往「浦東1號2號航站樓」方向，直接到「金科路」站下車，不必轉車。若當時人在豫園附近，也可從豫園站搭14號線到「陸家嘴」再轉2號線，惟以當日所在位置選最近車站即可。',
   '【回程去浦東機場T2】從長榮桂冠上海步行至金科路站，搭2號線往「浦東1號2號航站樓」方向，於「浦東1號2號航站樓」站下車；依機場指標前往T2及BR721櫃檯。這段不需轉車。建議預留足夠時間，勿只按地鐵車程估算。'
  ];
+ const eventDetails=[
+  [
+   '搭乘 BR752 從桃園飛往上海浦東。抵達後依入境、行李提領及海關流程出關；請先確認手機網路與支付工具可用。',
+   '前往地鐵站搭2號線往市區方向，在金科路站下車，再步行前往長榮桂冠上海。抵達飯店先辦理入住、放行李並休息。',
+   '若朵雲書院當日開放且體力許可，可前往上海中心大廈52樓；出發前確認入場時間、預約及最後入場規定。',
+   '陸家嘴濱江或商場周邊欣賞夜景、用晚餐。回飯店搭2號線往浦東機場方向至金科路；若疲累可直接在飯店附近用餐。'
+  ],
+  [
+   '早餐後從金科路站出發，搭2號線往市區方向，依轉乘路線前往松江；預留跨區交通時間，不要把市區短程車程套用到這段。',
+   '抵達廣富林文化遺址後先參觀園區與水下博物館。水下博物館開放時間、入場方式及是否需預約，請以當日公告為準。',
+   '在廣富林或松江大學城附近用午餐，預留用餐與步行時間，避免壓縮下午返市區行程。',
+   '由松江一帶搭車返回市區；建議預留約1.5小時以上彈性，實際時間依公車、地鐵候車及轉乘狀況調整。',
+   '交通大學站周邊下車後步行逛武康路、武康大樓及安福路。以街區散步、拍照和咖啡店為主，雨勢大時縮短戶外停留。',
+   '由交通大學站搭11號線往嘉定北／花橋方向至江蘇路，站內轉2號線往浦東機場方向，在金科路下車。'
+  ],
+  [
+   '早餐後前往玉佛禪寺。可由江寧路站步行前往，參觀寺院時留意開放時間、入寺規範及現場動線。',
+   '參觀玉佛禪寺主要殿堂與寺院空間，請保持安靜；若遇法會或人潮，依現場人員指引調整參觀順序。',
+   '在寺院周邊用午餐，建議控制用餐時間，下午留足地鐵移動與新天地散步時間。',
+   '從玉佛禪寺步行至江寧路站，搭13號線往張江路方向至一大會址·新天地站，依出口指標步行進入新天地商圈。',
+   '在新天地石庫門街區散步、逛店、喝茶；可依體力安排室內展覽或咖啡館，避免把整段行程排得太緊。',
+   '晚餐後由一大會址·新天地站搭13號線往金運路方向至南京西路，站內轉2號線往浦東機場方向，金科路下車。'
+  ],
+  [
+   '早餐後從飯店出發前往朱家角，這天以古鎮為主，不建議再加排其他遠距景點；交通時間請留寬裕。',
+   '抵達古鎮後先用午餐，可依現場排隊情況選放生橋周邊菜館或麵館；週一店家營業狀況以現場為準。',
+   '沿北大街慢逛，品嚐阿婆粽，看看涵大隆醬園等老店；可依人潮及店家開門情況彈性停留。',
+   '步行至放生橋與河道周邊拍照；搖櫓船是否營運、候船時間與票價以現場公告為準，雨大或風強不搭船。',
+   '課植園與大清郵局擇一參觀，依開放時間及當日體力決定；不必為了趕兩處而壓縮古鎮散步。',
+   '在臨河茶館稍作休息後返程。可搭1510路接駁朱家角地鐵站，再搭17號線往虹橋火車站方向，轉2號線往浦東機場方向至金科路。'
+  ],
+  [
+   '早餐後前往豫園及城隍廟區域。園林入園時間、門票及預約請先確認；若只逛商城，仍需預留步行與人潮時間。',
+   '參觀豫園、九曲橋及城隍廟周邊。熱門時段人潮較多，拍照與移動請注意隨身物品。',
+   '午餐可安排南翔小籠等上海點心；熱門店可能排隊，建議準備附近替代餐廳。',
+   '沿南京路步行街由東向西逛街，可依購物需求安排百貨、老店與休息時間。',
+   '傍晚前往外灘，沿江欣賞浦西萬國建築與浦東天際線；可續走外白渡橋。天候不佳時縮短江邊停留。'
+  ],
+  [
+   '早餐後整理行李，辦理退房並將行李寄放飯店；確認護照、機票及貴重物品隨身保管。',
+   '步行或短程前往長泰廣場用午餐，選擇方便、上菜較快的餐廳，避免影響後續取行李時間。',
+   '在張江周邊安排輕鬆散步或咖啡，不再排需要長時間移動的景點；留意天氣及回飯店時間。',
+   '預留採買時間，之後回飯店取行李並再次確認航班、護照及隨身物品。',
+   '從飯店步行至金科路站，搭2號線往浦東1號2號航站樓方向，於浦東1號2號航站樓站下車，依指標前往T2。',
+   '搭乘 BR721 由上海浦東返回桃園。請依航空公司規定提前辦理報到、托運及安檢；20:10為表定起飛時間。'
+  ]
+ ];
  function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
  function mapUrl(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' 上海')}
  function amapUrl(q){return 'https://uri.amap.com/search?keyword='+encodeURIComponent(q)+'&city='+encodeURIComponent('上海')+'&callnative=0'}
@@ -147,7 +195,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  function render(){
   renderTabs();content.innerHTML='';
   const d=days[active],k=el('div','sa-kicker','行程路線總覽  /  DAY '+(active+1));
-  content.append(k,el('h1','sa-day-title',d.title+(active===3?' ★ 必去':'')),el('div','sa-lead',d.lead));
+  content.append(k,el('h1','sa-day-title',d.title+(active===3?' ★ 必去':'')),el('div','sa-plan-heading','今日行程安排'),el('div','sa-lead',d.lead));
   if(d.weather)content.append(el('div','sa-weather',d.weather));
   const timeline=el('section','sa-timeline');
   d.events.forEach((line,j)=>{
@@ -157,10 +205,9 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
    const time=m?m[1]:(j===0?'行程安排':'接續行程');
    const title=m?m[2]:line;
    ev.append(el('div','sa-time',time),el('div','sa-event-title',title));
-   if(j===0)ev.append(el('div','sa-event-desc',d.lead));
    const actions=el('div','sa-event-actions');
    const detail=el('button','sa-action','查看詳情');detail.type='button';
-   detail.addEventListener('click',()=>openDetail('行程補充',line+'\n\n'+d.note+'\n\n'+d.metro+'\n\n'+(mode==='rain'?d.rain:'')));
+   detail.addEventListener('click',()=>openDetail(title+'｜查看詳情',(eventDetails[active]?.[j]||line)+(mode==='rain'?'\n\n雨天提醒：'+d.rain:'')));
    actions.append(detail);
    const map=el('button','sa-action sa-map-action','地圖');map.type='button';
    map.addEventListener('click',()=>window.open(mapUrl(title.replace(/[（(].*?[）)]/g,'').slice(0,50)),'_blank','noopener'));
