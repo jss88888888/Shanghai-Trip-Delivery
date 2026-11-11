@@ -72,7 +72,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
 .sa-sub{font-size:13px;color:#77808e;margin-top:4px}
 .sa-tabs{display:flex;gap:9px;overflow-x:auto;max-width:760px;margin:18px auto 26px;padding:2px 2px 10px;scrollbar-width:thin}
 .sa-tab{flex:0 0 66px;height:62px;border:1px solid #e0e5ec;border-radius:16px;background:#fff;color:#7b8491;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
-.sa-tab small{font-size:11px}.sa-tab strong{font-size:20px;line-height:1.2}
+.sa-tab small{font-size:11px}.sa-tab strong{font-size:20px;line-height:1.2}.sa-tab-weather{font-size:10px;line-height:1.25;margin-top:3px;white-space:nowrap;color:inherit;opacity:.95}.sa-tab{flex-basis:78px;height:72px;flex-shrink:0}
 .sa-tab.active{background:#2860f5;color:#fff;border-color:#2860f5;box-shadow:0 5px 12px #2860f544}
 .sa-content{max-width:760px;margin:auto}
 .sa-kicker{font-size:12px;color:#2860f5;font-weight:700;letter-spacing:.12em}
@@ -131,10 +131,11 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  const tabs=document.getElementById('sa-tabs'),content=document.getElementById('sa-content');
  let active=0,mode='sun';
  const names=['FRI','SAT','SUN','MON','TUE','WED'];
+ const forecast=[['🌧️','18°/15°','小雨'],['🌧️','19°/15°','小雨'],['🌦️','20°/14°','短暫雨轉陰'],['☁️','18°/12°','陰'],['🌧️','17°/11°','小雨'],['🌥️','12°/4°','多雲']];
  function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
  function mapUrl(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' 上海')}
  function amapUrl(q){return 'https://uri.amap.com/search?keyword='+encodeURIComponent(q)+'&city='+encodeURIComponent('上海')+'&callnative=0'}
- function renderTabs(){tabs.innerHTML='';days.forEach((d,i)=>{const b=el('button','sa-tab'+(i===active?' active':''));b.type='button';b.append(el('small',null,names[i]));b.append(el('strong',null,d.date));b.addEventListener('click',()=>{active=i;render()});tabs.append(b)})}
+ function renderTabs(){tabs.innerHTML='';days.forEach((d,i)=>{const b=el('button','sa-tab'+(i===active?' active':''));b.type='button';b.append(el('small',null,names[i]));b.append(el('strong',null,d.date));b.append(el('span','sa-tab-weather',forecast[i][0]+' '+forecast[i][1]));b.title=forecast[i][2]+'，高低溫 '+forecast[i][1]+' °C';b.addEventListener('click',()=>{active=i;render()});tabs.append(b)})}
  function render(){
   renderTabs();content.innerHTML='';
   const d=days[active],k=el('div','sa-kicker','行程路線總覽  /  DAY '+(active+1));
