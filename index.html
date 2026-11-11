@@ -132,6 +132,14 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  let active=0,mode='sun';
  const names=['FRI','SAT','SUN','MON','TUE','WED'];
  const forecast=[['🌧️','18°/15°','小雨','64%','4.8 mm'],['🌧️','21°/16°','陣雨','83%','12.9 mm'],['🌦️','20°/15°','短暫雨','30%','0 mm'],['☁️','19°/12°','陰','6%','0 mm'],['🌧️','19°/9°','陣雨','75%','13.5 mm'],['🌥️','13°/3°','多雲','67%','2.7 mm']];
+ const returnRoutes=[
+  '【抵達與晚間回程】浦東機場搭2號線，確認列車終點為「浦東1號2號航站樓」方向，於金科路站下車；出站後依導航步行至長榮桂冠上海。若晚間前往陸家嘴，金科路站搭2號線往「蟠祥路／虹橋火車站」方向至陸家嘴；回程在陸家嘴站搭2號線往「浦東機場」方向，約數站到金科路，不需轉車。',
+  '【廣富林回市區＋晚上回飯店】廣富林結束後，搭松江15路回「松江大學城」站；進站搭9號線往市區方向至「徐家匯」，站內依「11號線」指標轉乘，搭往「嘉定北／花橋」方向一站至「交通大學」站，出站步行到武康路、安福路。逛完回飯店：交通大學站搭11號線往「嘉定北／花橋」方向至「江蘇路」；下車後跟「2號線」轉乘指標，不出站轉2號線，搭往「浦東1號2號航站樓」方向，於「金科路」下車。重點：江蘇路轉乘2號線，不要搭反方向。',
+  '【新天地回飯店】從新天地步行回「一大會址·新天地」站，搭13號線往「金運路」方向，至「南京西路」站下車；依站內「2號線」轉乘指標換乘，不出站，改搭2號線往「浦東1號2號航站樓」方向，於「金科路」站下車。重點：在南京西路轉線，2號線要選浦東機場方向。',
+  '【朱家角回飯店】從古鎮遊客中心／課植園路站搭1510路回「珠溪路滬青平公路」附近的朱家角地鐵站接駁點；步行進朱家角站1號口，搭17號線往「虹橋火車站」方向，終點站下車。站內跟「2號線」指標轉乘，搭2號線往「浦東1號2號航站樓」方向，於「金科路」站下車。若1510路等候太久，可由古鎮步行約1.3公里回朱家角站。注意公車末班及地鐵末班，出發前查當日班次。',
+  '【外灘回飯店】從外灘沿南京東路步行街往西走，回到「南京東路」地鐵站；搭2號線往「浦東1號2號航站樓」方向，直接到「金科路」站下車，不必轉車。若當時人在豫園附近，也可從豫園站搭14號線到「陸家嘴」再轉2號線，惟以當日所在位置選最近車站即可。',
+  '【回程去浦東機場T2】從長榮桂冠上海步行至金科路站，搭2號線往「浦東1號2號航站樓」方向，於「浦東1號2號航站樓」站下車；依機場指標前往T2及BR721櫃檯。這段不需轉車。建議預留足夠時間，勿只按地鐵車程估算。'
+ ];
  function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
  function mapUrl(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' 上海')}
  function amapUrl(q){return 'https://uri.amap.com/search?keyword='+encodeURIComponent(q)+'&city='+encodeURIComponent('上海')+'&callnative=0'}
@@ -163,9 +171,11 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
   content.append(timeline);
   const detail=el('section','sa-detail-panel');detail.append(el('div','sa-detail-title','🚇 當日交通與重要提醒'));
   detail.append(el('div','sa-detail-text',d.metro||d.note));
+  const back=el('section','sa-detail-panel');back.append(el('div','sa-detail-title','↩ 回飯店／回程交通（含轉乘方向）'));
+  back.append(el('div','sa-detail-text',returnRoutes[active]));
   const links=el('div','sa-detail-links');
   const map=el('button','sa-action sa-map-action','查看當日景點地圖');map.type='button';map.addEventListener('click',()=>window.open(mapUrl(d.title),'_blank','noopener'));links.append(map);const amapDay=el('button','sa-action sa-amap-action','高德地圖');amapDay.type='button';amapDay.addEventListener('click',()=>window.open(amapUrl(d.title),'_blank','noopener'));links.append(amapDay);
-  detail.append(links);content.append(detail);
+  detail.append(links);content.append(detail,back);
   const sw=el('div','sa-weather-switch');
   const sunny=el('button',mode==='sun'?'active':'','☀ 晴天行程'),rainy=el('button',mode==='rain'?'active':'','☂ 雨天備案');
   sunny.type=rainy.type='button';
