@@ -86,7 +86,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
 .sa-dot{position:absolute;left:-47px;top:3px;width:24px;height:24px;border-radius:50%;background:#2860f5;border:5px solid #e7efff;box-shadow:0 2px 6px #2860f533}
 .sa-event.transport .sa-dot{background:#0f9b81;border-color:#e1f6f0}
 .sa-time{font-size:11px;color:#8892a1;margin-bottom:2px}
-.sa-event-title{font-size:17px;font-weight:700;line-height:1.4}
+.sa-event-title{font-size:17px;font-weight:700;line-height:1.4;overflow-wrap:anywhere;word-break:break-word;white-space:normal!important;display:block;width:100%;max-width:100%}.sa-event{min-width:0;max-width:100%}#live-version{display:none!important}
 .sa-event-desc{font-size:13px;color:#798392;margin-top:5px;line-height:1.5}
 .sa-event-actions{display:flex;gap:8px;margin-top:8px}
 .sa-action{border:0;background:#f1f5ff;color:#2860f5;border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}
@@ -105,7 +105,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
 .sa-detail-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .sa-empty{padding:30px;text-align:center;color:#7b8491}
 @media(min-width:900px){#shanghai-app{padding-top:30px}.sa-title{font-size:32px}.sa-timeline{padding:28px 28px 24px 70px}.sa-timeline:before{left:42px}.sa-dot{left:-49px}.sa-event-title{font-size:18px}}
-@media(max-width:520px){#shanghai-app{padding:18px 12px 105px}.sa-title{font-size:25px}.sa-day-title{font-size:24px}.sa-timeline{padding:20px 15px 18px 56px;border-radius:20px}.sa-timeline:before{left:31px}.sa-dot{left:-37px}.sa-event-title{font-size:16px}.sa-tab{flex-basis:57px;height:58px}}
+@media(max-width:520px){#shanghai-app{padding:18px 12px 105px}.sa-title{font-size:25px}.sa-day-title{font-size:24px}.sa-timeline{padding:20px 15px 18px 56px;border-radius:20px}.sa-timeline:before{left:31px}.sa-dot{left:-37px}.sa-event-title{font-size:15px;word-break:break-all}.sa-tab{flex-basis:57px;height:58px}}
 </style>
 <div id="shanghai-app">
   <div class="sa-head"><div class="sa-title">上海 · 六天五夜</div><div class="sa-sub">2026.11.13 — 11.18　｜　每日行程與交通</div></div>
@@ -137,7 +137,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  function render(){
   renderTabs();content.innerHTML='';
   const d=days[active],k=el('div','sa-kicker','行程路線總覽  /  DAY '+(active+1));
-  content.append(k,el('h1','sa-day-title',d.title),el('div','sa-lead',d.lead));
+  content.append(k,el('h1','sa-day-title',d.title+(active===3?' ★ 必去':'')),el('div','sa-lead',d.lead));
   if(d.weather)content.append(el('div','sa-weather',d.weather));
   const timeline=el('section','sa-timeline');
   d.events.forEach((line,j)=>{
