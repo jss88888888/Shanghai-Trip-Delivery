@@ -320,88 +320,95 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
 <div id="sa-meal-modal" role="dialog" aria-modal="true" aria-label="每日午餐與晚餐建議">
  <div class="meal-window">
   <div class="meal-head"><strong>上海六日｜當餐餐廳與美食</strong><button class="meal-close" type="button">關閉 ✕</button></div>
-  <div class="meal-intro">只列出當天行程附近、該餐時段適合前往的餐廳與在地小吃；每餐提供數個可選擇的去處。營業時間、菜單及候位狀況請以當日店家資訊為準。</div>
-  <div class="meal-scroll"><table><colgroup><col style="width:35%"><col style="width:49%"><col style="width:16%"></colgroup><thead><tr><th>餐廳／位置</th><th>推薦吃什麼</th><th>導航</th></tr></thead><tbody id="sa-meal-rows"></tbody></table></div>
+  <div class="meal-intro">只列出當天、當餐及行程附近的餐廳。營業時間僅在查到可靠資料時標示，出發前仍請以店家公告為準。</div>
+  <div class="meal-scroll"><table class="meal-choice-table"><colgroup><col style="width:62%"><col style="width:18%"><col style="width:20%"></colgroup><thead><tr><th>餐廳名稱／推薦美食</th><th>餐別</th><th>位置地圖</th></tr></thead><tbody id="sa-meal-rows"></tbody></table></div>
  </div>
 </div>
 <style id="MEAL-MOBILE-COMPACT">
 #sa-meal-modal .meal-window{width:min(780px,100%);max-width:100%;box-sizing:border-box}
 #sa-meal-modal .meal-scroll{width:100%;max-width:100%;overflow-x:hidden!important;overflow-y:auto}
-#sa-meal-modal .meal-scroll table{width:100%!important;min-width:0!important;table-layout:fixed!important;border-collapse:collapse}
-#sa-meal-modal .meal-scroll th,#sa-meal-modal .meal-scroll td{box-sizing:border-box;padding:8px 6px;font-size:12px;line-height:1.45;white-space:normal!important;overflow-wrap:anywhere;word-break:break-word;vertical-align:top}
-#sa-meal-modal .meal-scroll th:nth-child(1),#sa-meal-modal .meal-scroll td:nth-child(1){width:35%}
-#sa-meal-modal .meal-scroll th:nth-child(2),#sa-meal-modal .meal-scroll td:nth-child(2){width:49%}
-#sa-meal-modal .meal-scroll th:nth-child(3),#sa-meal-modal .meal-scroll td:nth-child(3){width:16%;text-align:center}
-#sa-meal-modal .meal-place{font-weight:900;color:#29483f;display:block}
-#sa-meal-modal .meal-area{display:block;margin-top:3px;color:#7a7168;font-size:10px}
-#sa-meal-modal .meal-map{display:inline-block;padding:5px 4px;border-radius:6px;background:#f1e7df;color:#8b413b!important;font-weight:900;text-decoration:none;font-size:11px;white-space:nowrap}
+#sa-meal-modal .meal-choice-table{width:100%!important;min-width:0!important;table-layout:fixed!important;border-collapse:collapse}
+#sa-meal-modal .meal-choice-table th,#sa-meal-modal .meal-choice-table td{box-sizing:border-box;padding:9px 7px;font-size:12px;line-height:1.45;white-space:normal!important;overflow-wrap:anywhere;word-break:break-word;vertical-align:top}
+#sa-meal-modal .meal-choice-table th:nth-child(1),#sa-meal-modal .meal-choice-table td:nth-child(1){width:62%}
+#sa-meal-modal .meal-choice-table th:nth-child(2),#sa-meal-modal .meal-choice-table td:nth-child(2){width:18%;text-align:center}
+#sa-meal-modal .meal-choice-table th:nth-child(3),#sa-meal-modal .meal-choice-table td:nth-child(3){width:20%;text-align:center}
+#sa-meal-modal .meal-place{font-weight:900;color:#29483f;display:block;font-size:13px}
+#sa-meal-modal .meal-area{display:block;margin-top:2px;color:#7a7168;font-size:10px}
+#sa-meal-modal .meal-hours{display:block;margin-top:3px;color:#a15a35;font-size:10px;font-weight:800}
+#sa-meal-modal .meal-dishes{display:block;margin-top:4px;color:#4f5d55;font-size:11px}
+#sa-meal-modal .meal-kind{display:inline-block;padding:4px 5px;border-radius:6px;background:#fff2e7;color:#8b413b;font-size:11px;font-weight:900;white-space:nowrap}
+#sa-meal-modal .meal-map{display:inline-block;padding:6px 5px;border-radius:6px;background:#f1e7df;color:#8b413b!important;font-weight:900;text-decoration:none;font-size:11px;white-space:nowrap}
 @media(max-width:520px){
  #sa-meal-modal .meal-window{width:100vw;max-height:92dvh;border-radius:14px 14px 0 0}
  #sa-meal-modal .meal-head{padding:10px 12px;gap:8px}
  #sa-meal-modal .meal-head strong{font-size:15px}
  #sa-meal-modal .meal-intro{font-size:11px;line-height:1.4;padding:7px 11px}
- #sa-meal-modal .meal-scroll th,#sa-meal-modal .meal-scroll td{padding:6px 4px;font-size:11px;line-height:1.4}
- #sa-meal-modal .meal-area{font-size:9px}
+ #sa-meal-modal .meal-choice-table th,#sa-meal-modal .meal-choice-table td{padding:7px 4px;font-size:11px;line-height:1.4}
+ #sa-meal-modal .meal-place{font-size:12px}
+ #sa-meal-modal .meal-area,#sa-meal-modal .meal-hours{font-size:9px}
+ #sa-meal-modal .meal-dishes{font-size:10px}
+ #sa-meal-modal .meal-kind{font-size:10px;padding:4px 3px}
  #sa-meal-modal .meal-map{font-size:10px;padding:5px 3px}
 }
 </style>
 <script id="DAILY-MEAL-TABLE-SCRIPT">
 (function(){
+ // 欄位：日期、餐別、店名、位置、營業時間（有可靠資料才填）、推薦美食、地圖搜尋字
  const meals=[
-  [13,'dinner','利苑酒家（IFC國金中心）','陸家嘴／IFC Mall 3F','脆皮燒肉、蝦餃、鮮蝦腸粉；粵式點心與燒味','利苑酒家 上海 IFC'],
-  [13,'dinner','Efes Restaurant','陸家嘴 1885文化廣場','土耳其烤肉拼盤、烤肉串、鷹嘴豆泥；想換口味可選這家','Efes Restaurant Shanghai Lujiazui'],
-  [13,'dinner','陸家嘴商場小吃','上海中心／國金中心周邊','生煎包、小籠包、餛飩或麵食；抵達日想簡單吃就選商場內方便的店','Lujiazui mall food Shanghai'],
-  [14,'lunch','怡園中餐廳','廣富林宰相府酒店一樓','松仁野菜福包、脆皮和牛糯米山藥、雞頭米小豌豆','怡園中餐廳 廣富林'],
-  [14,'lunch','知也素齋','廣富林文化遺址／知也禪寺附近','素麵、素雞、素丸子與簡單素食套餐；園區內方便快速','知也素齋 廣富林'],
-  [14,'lunch','一尺花園（廣富林店）','廣富林路3260弄集賢坊','黑松露披薩、花園烤雞翅、重芝士披薩；適合想吃輕食或披薩','一尺花園 廣富林店'],
-  [14,'dinner','RAC BAR','安福路322號／武康路口','蘑菇煙肉蕎麥可麗餅、牛油果水煮蛋吐司、蝦沙拉','RAC BAR 安福路322號 上海'],
-  [14,'dinner','Azul Tapas Lounge','武康路378號／Ferguson Lane','西班牙Tapas小盤、海鮮與烤物；適合多人分食','Azul Tapas Lounge Wukang Road Shanghai'],
-  [14,'dinner','Franck Bistrot','武康路376號／Ferguson Lane','法式小酒館料理、主菜與甜點；想坐下慢慢吃可選','Franck Bistrot Wukang Road Shanghai'],
-  [15,'lunch','玉佛寺素齋','玉佛禪寺內／江寧路999號','雙菇麵、羅漢麵、香菇素餛飩；寺院參觀後就近用餐','玉佛寺素齋 江寧路999號 上海'],
-  [15,'lunch','知名上海生煎／麵食店','江寧路站、玉佛寺周邊','生煎包、蔥油拌麵或小餛飩；若寺內素齋未供餐，可現場找鄰近店家','上海 玉佛寺 江寧路 生煎 面馆'],
-  [15,'dinner','鼎泰豐（新天地南里）','新天地南里6號樓2樓','豬肉小籠包、蝦仁燒賣、蝦仁蛋炒飯、酸辣湯','鼎泰豐 新天地南里 上海'],
-  [15,'dinner','Crystal Jade 翡翠拉麵小籠包','新天地南里商場','蝦餃、燒賣、小籠包、拉麵；與鼎泰豐同區可比較候位','Crystal Jade Xintiandi Shanghai'],
-  [15,'dinner','榮小館','太倉路128號／新天地附近','台州與江浙風味海鮮、家常菜；想吃中式熱炒可選','榮小館 太倉路128號 上海'],
-  [15,'dinner','Bottega（新天地）','新天地／馬當路一帶','窯烤拿坡里披薩、義式前菜；想換西式口味可選','Bottega Xintiandi Shanghai'],
-  [16,'lunch','放生橋菜館','朱家角北大街172號／放生橋旁','清蒸白水魚、鹽水河蝦、油燜茭白、白斬雞；可邊看河景邊用餐','放生橋菜館 北大街172號 朱家角'],
-  [16,'lunch','朱家角古鎮水鄉小吃','北大街沿線','阿婆粽、扎肉、臭豆腐、海棠糕；適合少量多樣邊走邊吃','朱家角 北大街 小吃 上海'],
-  [16,'lunch','安麓全日餐廳','朱家角安麓酒店／珠湖路505號','本幫響油鱔糊、古鎮鮮河蝦；環境較好，價位也較高','安麓全日餐廳 朱家角'],
-  [16,'dinner','點都德','長泰廣場三座2樓／金科路站旁','蒸排骨、潮州蒸粉果、鳳爪、干炒牛河；回飯店後方便用餐','點都德 長泰廣場 上海'],
-  [16,'dinner','渝利火鍋','長泰廣場6座3樓','手切牛肉、毛肚、鴨腸；可選鴛鴦鍋或清湯，重口味可選','渝利火鍋 長泰廣場 上海'],
-  [16,'dinner','長泰廣場美食區','長泰廣場／金科路站旁','可依回飯店時間選簡餐、麵食或商場小吃；不必再跑遠處','長泰廣場 上海 餐廳'],
-  [17,'lunch','南翔饅頭店','豫園路87號／豫園商圈','鮮肉小籠包、蝦仁鮮肉小籠、三絲春卷；熱門時段需排隊','南翔饅頭店 豫園路87號 上海'],
-  [17,'lunch','綠波廊','豫園九曲橋、湖心亭旁','眉毛酥、蟹粉小籠、上海點心與本幫菜；經典老字號','綠波廊 豫園 上海'],
-  [17,'lunch','上海老飯店','福佑路242號／城隍廟附近','紅燒肉、八寶鴨、油爆蝦等本幫菜；適合坐下吃一餐','上海老飯店 福佑路242號'],
-  [17,'lunch','豫園老城廂小吃','四牌樓路、城隍廟周邊','蔥油餅、酒釀圓子、鮮肉月餅、粢飯糰；適合分段品嚐','上海 四牌樓路 小吃 豫園'],
-  [17,'dinner','花馬天堂雲南餐廳（Lost Heaven）','延安東路17號／外灘附近','大理風味蔥椒雞、蝦春卷、雲南野菜餅、香蕉葉蒸魚','Lost Heaven 外灘店 上海'],
-  [17,'dinner','上海姥姥家常飯館','福州路70號／外灘、南京東路附近','紅燒肉、油爆蝦、家常本幫菜；較親民的中式家常選擇','上海姥姥家常飯館 福州路70號'],
-  [17,'dinner','Mr & Mrs Bund','外灘18號6樓','法式海鮮、牛排與外灘夜景；價位較高，適合景觀餐','Mr and Mrs Bund The Bund Shanghai'],
-  [17,'dinner','潘小燒外灘店','九江路168號／南京東路站附近','雲南炭烤串、烤肉與小菜；適合想吃燒烤的晚餐','潘小燒外灘店 九江路168號'],
-  [18,'lunch','花悅庭·果木烤鴨','長泰廣場西區9座2樓','果木烤鴨、鮮蝦餃、農家豆腐、榄菜四季豆；返程前可坐下吃','花悅庭果木烤鴨 長泰廣場 上海'],
-  [18,'lunch','點都德','長泰廣場三座2樓','蒸排骨、粉果、鳳爪、干炒牛河；上菜選擇多','點都德 長泰廣場 上海'],
-  [18,'lunch','渝利火鍋','長泰廣場6座3樓','手切牛肉、毛肚、鴨腸；若不趕時間可選，返程日不建議吃太久','渝利火鍋 長泰廣場 上海']
+  [13,'晚餐','Efes Restaurant（艾菲斯土耳其餐廳）','陸家嘴1885文化廣場B座1樓','每日 11:30–22:30','單人烤肉拼盤、炭烤牛裡脊、土耳其起司皮塔餅','Efes Restaurant 陆家嘴店 上海'],
+  [13,'晚餐','利苑酒家','IFC國金中心3樓','','蝦餃、燒賣、脆皮燒肉、港式點心','利苑酒家 上海 IFC'],
+  [13,'晚餐','爐匠爐端燒酒','IFC國金中心4樓','每日 11:30–14:00、17:30–21:30','炭烤海鮮、烤魚、烤蔬菜','炉匠炉端烧酒 上海 IFC'],
+  [14,'午餐','怡園中餐廳','廣富林宰相府酒店一樓','','松仁野菜福包、脆皮和牛糯米山藥、雞頭米小豌豆','怡园中餐厅 广富林'],
+  [14,'午餐','知也素齋','廣富林文化遺址／知也禪寺附近','','素麵、素雞、素丸子、簡餐','知也素斋 广富林'],
+  [14,'午餐','一尺花園（廣富林店）','廣富林路3260弄集賢坊','','黑松露披薩、烤雞翅、甜點與咖啡','一尺花园 广富林店'],
+  [14,'晚餐','RAC Coffee & Bar','安福路322號／武康路口','每日 09:00–21:00','蘑菇煙肉蕎麥可麗餅、牛油果水煮蛋吐司、蝦沙拉','RAC Coffee Bar 安福路322号 上海'],
+  [14,'晚餐','Azul Tapas Lounge','武康路378號／Ferguson Lane','','西班牙Tapas小盤、海鮮、烤物','Azul Tapas Lounge 武康路378号 上海'],
+  [14,'晚餐','Franck Bistrot','武康路376號／Ferguson Lane','每日 10:00–22:00','法式小酒館主菜、每日特色菜、起司與冷盤','Franck Bistrot 武康路376号 上海'],
+  [15,'午餐','玉佛寺素齋','玉佛禪寺內／江寧路999號','','雙菇麵、羅漢麵、香菇素餛飩；供餐請現場確認','玉佛寺素斋 江宁路999号 上海'],
+  [15,'午餐','江寧路周邊生煎／麵食','玉佛寺、江寧路站周邊','','生煎包、蔥油拌麵、小餛飩；作為寺內素齋未供餐時的備選','玉佛寺 江宁路 生煎 上海'],
+  [15,'晚餐','鼎泰豐（新天地南里）','新天地南里6號樓2樓','','豬肉小籠包、蝦仁燒賣、蝦仁蛋炒飯、酸辣湯','鼎泰丰 新天地南里 上海'],
+  [15,'晚餐','Crystal Jade 翡翠拉麵小籠包','新天地南里商場','','蝦餃、燒賣、小籠包、拉麵','翡翠拉面小笼包 新天地 上海'],
+  [15,'晚餐','榮小館','太倉路128號／新天地附近','','台州海鮮、江浙家常菜、招牌小菜','荣小馆 太仓路128号 上海'],
+  [15,'晚餐','Bottega（新天地）','新天地商圈／馬當路一帶','','窯烤拿坡里披薩、義式前菜','Bottega Xintiandi Shanghai'],
+  [16,'午餐','放生橋菜館','朱家角北大街172號／放生橋旁','','清蒸白水魚、鹽水河蝦、油燜茭白、白斬雞','放生桥菜馆 北大街172号 朱家角'],
+  [16,'午餐','荷鮮館','朱家角北大街357號／城隍廟橋附近','','河鮮、白水魚、河蝦與江南家常菜','荷鲜馆 朱家角北大街357号'],
+  [16,'午餐','朱家角古鎮水鄉小吃','北大街沿線','','阿婆粽、扎肉、臭豆腐、海棠糕；適合邊逛邊吃','朱家角 北大街 小吃 上海'],
+  [16,'午餐','安麓全日餐廳','朱家角安麓酒店／珠湖路505號','每日 11:30–21:00','本幫菜、時令河鮮；環境較好、價位較高','安麓全日餐厅 朱家角'],
+  [16,'晚餐','點都德','長泰廣場三座2樓／金科路站旁','','蒸排骨、潮州蒸粉果、鳳爪、干炒牛河','点都德 长泰广场 上海'],
+  [16,'晚餐','渝利火鍋','長泰廣場6座3樓','','手切牛肉、毛肚、鴨腸；可選清湯或鴛鴦鍋','渝利火锅 长泰广场 上海'],
+  [16,'晚餐','長泰廣場美食區','長泰廣場／金科路站旁','','麵食、簡餐與商場小吃；回飯店晚時可就近選擇','长泰广场 上海 餐厅'],
+  [17,'午餐','南翔饅頭店','豫園商圈','','鮮肉小籠包、蝦仁鮮肉小籠、三絲春卷','南翔馒头店 豫园 上海'],
+  [17,'午餐','綠波廊','豫園九曲橋、湖心亭旁','參考資料：11:00–14:00、17:00–22:00','眉毛酥、蟹粉小籠、上海點心與本幫菜','绿波廊 豫园 上海'],
+  [17,'午餐','上海老飯店','福佑路242號／城隍廟附近','','紅燒肉、八寶鴨、油爆蝦等本幫菜','上海老饭店 福佑路242号'],
+  [17,'午餐','豫園老城廂小吃','四牌樓路、城隍廟周邊','','蔥油餅、酒釀圓子、鮮肉月餅、粢飯糰','豫园 四牌楼路 小吃 上海'],
+  [17,'晚餐','花馬天堂雲南餐廳（Lost Heaven）','延安東路17號／外灘附近','午餐 11:00–13:30；晚餐 17:30–22:00','蝦春卷、雲南野菜餅、香蕉葉蒸魚；香料口味可先詢問','Lost Heaven 外滩店 延安东路17号 上海'],
+  [17,'晚餐','上海姥姥家常飯館','福州路70號／外灘、南京東路附近','','紅燒肉、油爆蝦、家常本幫菜','上海姥姥家常饭馆 福州路70号 上海'],
+  [17,'晚餐','Mr & Mrs Bund','外灘18號6樓','','法式海鮮、牛排與外灘景觀；屬高價位選擇','Mr and Mrs Bund 外滩18号 上海'],
+  [17,'晚餐','松鶴樓（外灘店）','中山東二路505號','','蘇式麵點、松鼠桂魚等江南菜；適合想吃傳統中菜','松鹤楼 外滩 中山东二路505号 上海'],
+  [18,'午餐','花悅庭·果木烤鴨','長泰廣場西區9座2樓','','果木烤鴨、鮮蝦餃、農家豆腐、榄菜四季豆','花悦庭 果木烤鸭 长泰广场 上海'],
+  [18,'午餐','點都德','長泰廣場三座2樓','','蒸排骨、粉果、鳳爪、干炒牛河','点都德 长泰广场 上海'],
+  [18,'午餐','渝利火鍋','長泰廣場6座3樓','','手切牛肉、毛肚、鴨腸；返程日請留足交通時間','渝利火锅 长泰广场 上海']
  ];
  const modal=document.getElementById('sa-meal-modal'),rows=document.getElementById('sa-meal-rows');
  if(!modal||!rows)return;
  meals.forEach(m=>{
-  const tr=document.createElement('tr');
-  tr.dataset.day=String(m[0]);tr.dataset.meal=m[1];
-  const place=document.createElement('td');
-  const name=document.createElement('span');name.className='meal-place';name.textContent=m[2];place.append(name);
-  const area=document.createElement('span');area.className='meal-area';area.textContent=m[3];place.append(area);
-  const dishes=document.createElement('td');dishes.textContent=m[4];
-  const nav=document.createElement('td');const a=document.createElement('a');a.className='meal-map';a.textContent='地圖';a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(m[5])+'&city='+encodeURIComponent('上海')+'&callnative=0';a.target='_blank';a.rel='noopener';nav.append(a);
-  tr.append(place,dishes,nav);rows.append(tr);
+  const tr=document.createElement('tr');tr.dataset.day=String(m[0]);tr.dataset.meal=m[1];
+  const first=document.createElement('td');
+  const name=document.createElement('span');name.className='meal-place';name.textContent=m[2];first.append(name);
+  const area=document.createElement('span');area.className='meal-area';area.textContent=m[3];first.append(area);
+  if(m[4]){const hours=document.createElement('span');hours.className='meal-hours';hours.textContent='營業時間｜'+m[4];first.append(hours)}
+  const dishes=document.createElement('span');dishes.className='meal-dishes';dishes.textContent=m[5];first.append(dishes);
+  const kindCell=document.createElement('td');const kind=document.createElement('span');kind.className='meal-kind';kind.textContent=m[1];kindCell.append(kind);
+  const nav=document.createElement('td');const a=document.createElement('a');a.className='meal-map';a.textContent='開啟地圖';a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(m[6])+'&city='+encodeURIComponent('上海')+'&callnative=0';a.target='_blank';a.rel='noopener';nav.append(a);
+  tr.append(first,kindCell,nav);rows.append(tr);
  });
  function close(){modal.classList.remove('active')}
  modal.querySelector('.meal-close').addEventListener('click',close);
  modal.addEventListener('click',e=>{if(e.target===modal)close()});
  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
  window.ShanghaiMealTable={open(day,kind){
-  const matches=Array.from(rows.querySelectorAll('tr')).filter(tr=>tr.dataset.day===String(day)&&tr.dataset.meal===kind);
-  rows.querySelectorAll('tr').forEach(tr=>{tr.hidden=!matches.includes(tr)});
-  const heading=modal.querySelector('.meal-head strong');
-  heading.textContent='11/'+day+' '+(kind==='lunch'?'午餐':'晚餐')+'｜附近餐廳與美食';
+  rows.querySelectorAll('tr').forEach(tr=>{tr.hidden=!(tr.dataset.day===String(day)&&tr.dataset.meal===(kind==='lunch'?'午餐':'晚餐'))});
+  modal.querySelector('.meal-head strong').textContent='11/'+day+' '+(kind==='lunch'?'午餐':'晚餐')+'｜附近餐廳與美食';
   modal.classList.add('active');
  }};
 })();
