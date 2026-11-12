@@ -294,7 +294,28 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
 #sa-meal-modal .meal-food{font-weight:700}
 #sa-meal-modal a{color:#176d86;font-weight:800;white-space:nowrap;text-decoration:underline}
 #sa-meal-modal .meal-note{font-size:12px;color:#77766e;margin-top:4px}
-@media(max-width:600px){#sa-meal-modal{padding:10px}#sa-meal-modal .meal-window{width:100%;height:92vh;border-radius:14px}#sa-meal-modal .meal-head{padding:13px 14px}#sa-meal-modal .meal-head strong{font-size:17px}#sa-meal-modal .meal-intro{padding:9px 14px;font-size:12px}#sa-meal-modal .meal-scroll{padding:0 10px 14px}#sa-meal-modal table{font-size:13px;min-width:730px}.sa-meal-open{font-size:14px;padding:14px}}
+@media(max-width:600px){
+ #sa-meal-modal{padding:8px;box-sizing:border-box}
+ #sa-meal-modal .meal-window{width:100%;max-width:100%;height:92vh;border-radius:14px}
+ #sa-meal-modal .meal-head{padding:13px 14px}
+ #sa-meal-modal .meal-head strong{font-size:17px}
+ #sa-meal-modal .meal-intro{padding:9px 14px;font-size:12px}
+ #sa-meal-modal .meal-scroll{width:100%;max-width:100%;box-sizing:border-box;overflow-x:hidden;padding:0 10px 14px}
+ #sa-meal-modal table{display:block;width:100%;min-width:0;max-width:100%;font-size:13px;table-layout:fixed}
+ #sa-meal-modal thead{display:none}
+ #sa-meal-modal tbody{display:block;width:100%}
+ #sa-meal-modal tr{display:block;width:100%;box-sizing:border-box;margin:0 0 12px;padding:8px 10px;border:1px solid #e9e3d9;border-radius:10px;background:#fffaf1}
+ #sa-meal-modal td{display:block;width:100%;box-sizing:border-box;padding:5px 2px;border:0;white-space:normal;overflow-wrap:anywhere}
+ #sa-meal-modal td:before{display:block;margin-bottom:2px;font-size:11px;font-weight:900;color:#8b413b}
+ #sa-meal-modal td:nth-child(1):before{content:"日期"}
+ #sa-meal-modal td:nth-child(2):before{content:"餐別"}
+ #sa-meal-modal td:nth-child(3):before{content:"餐廳／位置"}
+ #sa-meal-modal td:nth-child(4):before{content:"建議點餐"}
+ #sa-meal-modal td:nth-child(5):before{content:"用餐提醒"}
+ #sa-meal-modal td:nth-child(6):before{content:"導航"}
+ #sa-meal-modal .meal-name,#sa-meal-modal .meal-date,#sa-meal-modal a{white-space:normal;overflow-wrap:anywhere}
+ .sa-meal-open{font-size:14px;padding:14px}
+}
 </style>
 <div id="sa-meal-modal" role="dialog" aria-modal="true" aria-label="每日午餐與晚餐建議">
  <div class="meal-window">
@@ -340,5 +361,73 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  const observer=new MutationObserver(addButton);
  if(content){observer.observe(content,{childList:true,subtree:true});addButton()}
 })();
-</script><style id="TAB-MINISO-VISIBLE-FIX">#sa-tabs .sa-tab{height:auto!important;min-height:148px!important;overflow:visible!important;flex-shrink:0!important;padding:7px 5px!important;justify-content:flex-start!important}#sa-tabs .sa-tab-miniso{display:block!important;flex:0 0 auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;visibility:visible!important;opacity:1!important;color:#c62828!important;background:#fff0f0!important;border:1px solid #efb4b4!important;font-weight:900!important;white-space:normal!important;line-height:1.3!important;text-align:center!important;padding:4px 5px!important;margin-top:4px!important}#sa-tabs .sa-tab.active .sa-tab-miniso{color:#c62828!important;background:#fff0f0!important;border-color:#efb4b4!important}@media(max-width:520px){#sa-tabs .sa-tab{min-height:172px!important;height:auto!important;padding:8px 5px!important}#sa-tabs .sa-tab-miniso{font-size:10px!important;flex-shrink:0!important}}</style></body></html>
+</script><style id="TAB-MINISO-VISIBLE-FIX">#sa-tabs .sa-tab{height:auto!important;min-height:148px!important;overflow:visible!important;flex-shrink:0!important;padding:7px 5px!important;justify-content:flex-start!important}#sa-tabs .sa-tab-miniso{display:block!important;flex:0 0 auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;visibility:visible!important;opacity:1!important;color:#c62828!important;background:#fff0f0!important;border:1px solid #efb4b4!important;font-weight:900!important;white-space:normal!important;line-height:1.3!important;text-align:center!important;padding:4px 5px!important;margin-top:4px!important}#sa-tabs .sa-tab.active .sa-tab-miniso{color:#c62828!important;background:#fff0f0!important;border-color:#efb4b4!important}@media(max-width:520px){#sa-tabs .sa-tab{min-height:172px!important;height:auto!important;padding:8px 5px!important}#sa-tabs .sa-tab-miniso{font-size:10px!important;flex-shrink:0!important}}</style>
+<style id="DAILY-MEALS-IN-DAY">
+.sa-daily-meals{margin:18px 0 30px;padding:17px 16px;background:#fff8f0;border:1px solid #ead8c8;border-left:5px solid #8b413b;border-radius:14px}
+.sa-daily-meals h2{font-size:19px;color:#8b413b;margin:0 0 12px}
+.sa-daily-meal{padding:12px 0;border-top:1px solid #eadfd3}
+.sa-daily-meal:first-of-type{border-top:0}
+.sa-daily-meal .meal-kind{font-size:12px;font-weight:900;color:#a15a35;margin-bottom:4px}
+.sa-daily-meal .meal-shop{font-size:15px;font-weight:900;color:#29483f}
+.sa-daily-meal .meal-dishes,.sa-daily-meal .meal-tip{font-size:13px;line-height:1.6;margin-top:4px;color:#4f5d55}
+.sa-daily-meal .meal-tip{color:#7a7168}
+.sa-daily-meal a{display:inline-block;margin-top:7px;color:#176d86;font-size:13px;font-weight:800}
+</style>
+<script id="DAILY-MEALS-IN-DAY-SCRIPT">
+(function(){
+ const data={
+  1:[['晚餐／小吃','香港龍鳳樓｜陸家嘴中心 9F','港式蒸點、蝦餃皇；可搭配燒賣、蒸排骨','接續陸家嘴夜景；若仍有食量，19:30 可到世紀匯 B2 1192弄吃生煎包、小餛飩、蔥油餅。','香港龍鳳樓 上海 陸家嘴中心']],
+  2:[['午餐','怡園中餐廳｜廣富林宰相府酒店一樓','松仁野菜福包、脆皮和牛糯米山藥、雞頭米小豌豆','就在廣富林景區附近；午市資料為 11:00–13:30，請以當日營業為準。','上海松江廣富林宰相府酒店 怡園'],['晚餐','RAC BAR｜安福路322號（武康路口）','蘑菇煙肉蕎麥可麗餅、牛油果水煮蛋吐司、蝦沙拉','適合逛完武康路、安福路後用餐；若排隊太久，可改附近咖啡簡餐。','RAC BAR 安福路322號 上海']],
+  3:[['午餐','玉佛寺素齋｜玉佛禪寺內／江寧路999號','雙菇麵、香菇素餛飩、素大排拌麵或羅漢上素麵','寺院內用餐最順路；素齋供餐時間與入場規則請現場確認。','玉佛寺素齋 江寧路999號 上海'],['晚餐','鼎泰豐｜新天地南里6號樓2樓','豬肉小籠包、蝦仁燒賣、蝦仁蛋炒飯、酸辣湯','新天地商圈內方便用餐；熱門時段可能候位，建議提早用餐。','鼎泰豐 新天地南里 上海']],
+  4:[['午餐','放生橋菜館｜朱家角北大街172號','清蒸白水魚、鹽水河蝦、油燜茭白、炒螺螄','就在放生橋旁；兩人可選兩道菜加一份主食，避免點太多。','放生橋菜館 北大街172號 朱家角'],['下午小吃','銀杏樹阿婆粽｜朱家角北大街262號','五花大肉粽、鹹蛋黃肉粽；另可買粽葉扎肉','適合北大街散步時外帶；回程時間較長，晚餐不另排遠程餐廳。','銀杏樹阿婆粽 北大街262號 朱家角'],['晚餐（彈性）','點都德｜長泰廣場三座2樓','特色蒸排骨、潮州蒸粉果、百合醬鳳爪、干炒牛河','僅在回飯店時間較早且仍有食慾時選用；疲累可在飯店附近簡單用餐。','點都德 長泰廣場 上海']],
+  5:[['午餐','南翔饅頭店｜豫園路87號','傳統鮮肉小籠、蝦仁鮮肉小籠、三絲春卷','建議避開正午尖峰；不必點蟹黃灌湯包，排隊時可先買小份外帶。','南翔饅頭店 豫園路87號 上海'],['晚餐','花馬天堂雲南餐廳（Lost Heaven）｜延安東路17號','大理風味蔥椒雞、蝦春卷、雲南野菜餅、香蕉葉蒸魚','靠近外灘，適合先用晚餐再散步看夜景；建議預約，口味可請店家做不辣。','Lost Heaven 外灘店 延安東路17號 上海']],
+  6:[['午餐','花悅庭·果木烤鴨｜長泰廣場西區9座2樓','招牌果木烤鴨、鮮蝦餃、小榄農家豆腐、榄菜干煸四季豆','離金科路站近，適合返程日吃完回飯店取行李；請預留回飯店與前往機場時間。','花悅庭果木烤鴨 長泰廣場 上海']]
+ };
+ const content=document.getElementById('sa-content');
+ if(!content)return;
+ function update(){
+  const redButton=content.querySelector('.sa-meal-open');if(redButton)redButton.remove();
+  const kicker=content.querySelector('.sa-kicker');
+  const match=kicker&&kicker.textContent.match(/DAY\s*(\d+)/);
+  if(!match)return;
+  const day=Number(match[1]);
+  const old=content.querySelector('.sa-daily-meals');
+  if(old&&old.dataset.day===String(day))return;
+  if(old)old.remove();
+  const items=data[day]||[];
+  const section=document.createElement('section');section.className='sa-daily-meals';section.dataset.day=String(day);
+  const heading=document.createElement('h2');heading.textContent='🍽 今日午餐・晚餐建議';section.append(heading);
+  if(!items.length){const p=document.createElement('div');p.textContent='今日未另安排指定餐廳，建議依當日行程就近用餐。';section.append(p)}
+  items.forEach(item=>{
+   const card=document.createElement('article');card.className='sa-daily-meal';
+   const kind=document.createElement('div');kind.className='meal-kind';kind.textContent=item[0];
+   const shop=document.createElement('div');shop.className='meal-shop';shop.textContent=item[1];
+   const dishes=document.createElement('div');dishes.className='meal-dishes';dishes.textContent='推薦菜色：'+item[2];
+   const tip=document.createElement('div');tip.className='meal-tip';tip.textContent=item[3];
+   const link=document.createElement('a');link.href='https://uri.amap.com/search?keyword='+encodeURIComponent(item[4])+'&city='+encodeURIComponent('上海')+'&callnative=0';link.target='_blank';link.rel='noopener';link.textContent='高德地圖導航 ↗';
+   card.append(kind,shop,dishes,tip,link);section.append(card);
+  });
+  const timeline=content.querySelector('.sa-timeline');
+  if(timeline)timeline.insertAdjacentElement('afterend',section);else content.append(section);
+ }
+ const observer=new MutationObserver(update);
+ observer.observe(content,{childList:true,subtree:true});
+ update();
+ window.addEventListener('pageshow',function(){
+  // 依台灣／裝置當地日期，選擇行程中「今天」；出發前則選最近的未來行程日
+  const today=new Date();
+  const tripDates=days.map(d=>new Date(2026,10,Number(d.date)));
+  let target=tripDates.findIndex(date=>date.toDateString()===today.toDateString());
+  if(target<0){
+   target=tripDates.findIndex(date=>date>new Date(today.getFullYear(),today.getMonth(),today.getDate()));
+   if(target<0)target=days.length-1;
+  }
+  const tab=document.querySelectorAll('#sa-tabs .sa-tab')[target];
+  if(tab)tab.click();
+  else {active=target;render();}
+  window.scrollTo(0,0);
+ },{once:true});
+})();
+</script>
+</body></html>
 
