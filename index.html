@@ -407,7 +407,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  modal.addEventListener('click',e=>{if(e.target===modal)close()});
  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
  window.ShanghaiMealTable={open(day,kind){
-  rows.querySelectorAll('tr').forEach(tr=>{tr.hidden=!(tr.dataset.day===String(day)&&tr.dataset.meal===(kind==='lunch'?'午餐':'晚餐'))});
+  rows.querySelectorAll('tr').forEach(tr=>{const show=(tr.dataset.day===String(day)&&tr.dataset.meal===(kind==='lunch'?'午餐':'晚餐'));tr.hidden=!show;tr.style.setProperty('display',show?'table-row':'none','important')});
   modal.querySelector('.meal-head strong').textContent='11/'+day+' '+(kind==='lunch'?'午餐':'晚餐')+'｜附近餐廳與美食';
   modal.classList.add('active');
  }};
