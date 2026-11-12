@@ -400,7 +400,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
   const dishes=document.createElement('span');dishes.className='meal-dishes';dishes.textContent=m[5];first.append(dishes);
   const kindCell=document.createElement('td');const kind=document.createElement('span');kind.className='meal-kind';kind.textContent=m[1];kindCell.append(kind);
   const nav=document.createElement('td');const a=document.createElement('a');a.className='meal-map';a.textContent='開啟地圖';a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(m[6])+'&city='+encodeURIComponent('上海')+'&callnative=0';a.target='_blank';a.rel='noopener';nav.append(a);
-  tr.append(first,kindCell,nav);rows.append(tr);
+  first.append(nav);tr.append(first);rows.append(tr);
  });
  function close(){modal.classList.remove('active')}
  modal.querySelector('.meal-close').addEventListener('click',close);
@@ -501,5 +501,21 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
 #sa-meal-modal .meal-map{display:inline-block!important;font-size:12px!important;padding:7px 11px!important;white-space:nowrap!important}
 </style>
 <style id="MEAL-BUTTON-IN-TIMELINE">.sa-event-actions .sa-meal-inline{background:#8b413b!important;color:#fff!important;border-color:#8b413b!important;font-weight:900!important}.sa-event-actions .sa-meal-inline:active{opacity:.85}@media(max-width:600px){.sa-event-actions .sa-meal-inline{font-size:12px!important;padding:7px 9px!important}}</style>
+
+<style id="MEAL-ONE-COLUMN-TABLE-FINAL">
+/* 單欄直式表格：一間餐廳一列，資訊由上而下，地圖按鈕放在同一列底部 */
+#sa-meal-modal .meal-choice-table{display:table!important;width:100%!important;min-width:0!important;table-layout:fixed!important;border-collapse:separate!important;border-spacing:0!important}
+#sa-meal-modal .meal-choice-table thead{display:none!important}
+#sa-meal-modal .meal-choice-table tbody{display:table-row-group!important;width:100%!important}
+#sa-meal-modal .meal-choice-table tr{display:table-row!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important}
+#sa-meal-modal .meal-choice-table tr[hidden]{display:none!important}
+#sa-meal-modal .meal-choice-table td{display:table-cell!important;width:100%!important;padding:13px 12px!important;border:0!important;border-bottom:1px solid #e8ded1!important;text-align:left!important;vertical-align:top!important;box-sizing:border-box!important}
+#sa-meal-modal .meal-place{display:block!important;font-size:16px!important;font-weight:900!important;line-height:1.5!important;color:#29483f!important}
+#sa-meal-modal .meal-area{display:block!important;margin-top:4px!important;font-size:13px!important;line-height:1.5!important;color:#756d64!important}
+#sa-meal-modal .meal-hours{display:block!important;margin-top:4px!important;font-size:12px!important;color:#a15a35!important}
+#sa-meal-modal .meal-dishes{display:block!important;margin-top:5px!important;font-size:13px!important;line-height:1.6!important;color:#4f5d55!important}
+#sa-meal-modal .meal-map{display:inline-block!important;margin-top:10px!important;padding:8px 13px!important;border-radius:8px!important;background:#f1e7df!important;color:#8b413b!important;font-size:13px!important;font-weight:900!important;text-decoration:none!important}
+#sa-meal-modal .meal-choice-table td:before{display:none!important;content:none!important}
+</style>
 </body></html>
 
