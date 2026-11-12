@@ -441,8 +441,8 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
    const text=title.textContent;
    let kind=/午餐|中餐|用午餐/.test(text)?'lunch':(/晚餐/.test(text)?'dinner':'');
    const events=Array.from(content.querySelectorAll('.sa-event'));
+   // 只有行程明確標示午餐／晚餐才顯示按鈕；11/17 外灘夜間行程是唯一例外。
    if(!kind&&day===5&&/外灘/.test(text))kind='dinner';
-   if(!kind&&day===4&&ev===events[events.length-1])kind='dinner';
    if(!kind)return;
    const b=document.createElement('button');
    b.type='button';b.className='sa-action sa-meal-inline';
