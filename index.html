@@ -399,7 +399,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
   if(m[4]){const hours=document.createElement('span');hours.className='meal-hours';hours.textContent='營業時間｜'+m[4];nameCell.append(hours)}
   const dishesCell=document.createElement('td');
   const dishes=document.createElement('span');dishes.className='meal-dishes';dishes.textContent=m[5];dishesCell.append(dishes);
-  const mapCell=document.createElement('td');const a=document.createElement('a');a.className='meal-map';a.textContent='地圖';a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(m[6])+'&city='+encodeURIComponent('上海')+'&callnative=0';a.target='_blank';a.rel='noopener';mapCell.append(a);
+  const mapCell=document.createElement('td');const a=document.createElement('a');a.className='meal-map';a.textContent='地圖';a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(m[2]+' '+m[3]+' '+(m[6]||''))+'&city='+encodeURIComponent('上海')+'&callnative=0';a.target='_blank';a.rel='noopener';mapCell.append(a);
   tr.append(nameCell,dishesCell,mapCell);rows.append(tr);
  });
  function close(){modal.classList.remove('active')}
