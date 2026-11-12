@@ -483,6 +483,23 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  #sa-meal-modal .meal-kind,#sa-meal-modal .meal-map{font-size:10px!important;padding:4px 2px!important;white-space:normal!important}
 }
 </style>
+<style id="MEAL-VERTICAL-CARD-LAYOUT">
+/* 餐飲建議改為直向卡片：不顯示日期、餐別，只保留餐廳資訊與地圖 */
+#sa-meal-modal .meal-choice-table{display:block!important;width:100%!important;min-width:0!important;table-layout:auto!important}
+#sa-meal-modal .meal-choice-table thead{display:none!important}
+#sa-meal-modal .meal-choice-table tbody{display:block!important;width:100%!important}
+#sa-meal-modal .meal-choice-table tr{display:block!important;width:100%!important;box-sizing:border-box!important;margin:0 0 12px!important;padding:12px 13px!important;border:1px solid #e9e3d9!important;border-radius:12px!important;background:#fffaf1!important}
+#sa-meal-modal .meal-choice-table td{display:block!important;width:100%!important;box-sizing:border-box!important;padding:0!important;border:0!important;text-align:left!important;white-space:normal!important}
+#sa-meal-modal .meal-choice-table td:nth-child(1){display:block!important}
+#sa-meal-modal .meal-choice-table td:nth-child(2){display:none!important}
+#sa-meal-modal .meal-choice-table td:nth-child(3){display:block!important;margin-top:9px!important;padding-top:8px!important;border-top:1px solid #eee4d8!important;text-align:left!important}
+#sa-meal-modal .meal-choice-table td:before{display:none!important;content:none!important}
+#sa-meal-modal .meal-place{font-size:15px!important;line-height:1.45!important}
+#sa-meal-modal .meal-area{font-size:12px!important}
+#sa-meal-modal .meal-hours{font-size:11px!important}
+#sa-meal-modal .meal-dishes{font-size:12px!important;line-height:1.55!important}
+#sa-meal-modal .meal-map{display:inline-block!important;font-size:12px!important;padding:7px 11px!important;white-space:nowrap!important}
+</style>
 <style id="MEAL-BUTTON-IN-TIMELINE">.sa-event-actions .sa-meal-inline{background:#8b413b!important;color:#fff!important;border-color:#8b413b!important;font-weight:900!important}.sa-event-actions .sa-meal-inline:active{opacity:.85}@media(max-width:600px){.sa-event-actions .sa-meal-inline{font-size:12px!important;padding:7px 9px!important}}</style>
 </body></html>
 
