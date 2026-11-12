@@ -1,1 +1,1 @@
-2026-11-12-tv-auto-refresh-v1
+2026-11-12-fix-html-head-mobile-tv-v1
