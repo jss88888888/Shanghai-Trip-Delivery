@@ -321,7 +321,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  <div class="meal-window">
   <div class="meal-head"><strong>上海六日｜當餐餐廳與美食</strong><button class="meal-close" type="button">關閉 ✕</button></div>
   <div class="meal-intro">只列出當天、當餐及行程附近的餐廳。營業時間僅在查到可靠資料時標示，出發前仍請以店家公告為準。</div>
-  <div class="meal-scroll"><table class="meal-choice-table"><colgroup><col style="width:36%"><col style="width:44%"><col style="width:20%"></colgroup><thead><tr><th>餐廳名稱／位置／營業時間</th><th>推薦美食</th><th>位置地圖</th></tr></thead><tbody id="sa-meal-rows"></tbody></table></div>
+  <div class="meal-scroll"><table class="meal-choice-table"><colgroup><col style="width:34%"><col style="width:46%"><col style="width:20%"></colgroup><thead><tr><th>餐廳／位置</th><th>推薦美食</th><th>地圖</th></tr></thead><tbody id="sa-meal-rows"></tbody></table></div>
  </div>
 </div>
 <style id="MEAL-MOBILE-COMPACT">
@@ -399,7 +399,7 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
   if(m[4]){const hours=document.createElement('span');hours.className='meal-hours';hours.textContent='營業時間｜'+m[4];nameCell.append(hours)}
   const dishesCell=document.createElement('td');
   const dishes=document.createElement('span');dishes.className='meal-dishes';dishes.textContent=m[5];dishesCell.append(dishes);
-  const mapCell=document.createElement('td');const a=document.createElement('a');a.className='meal-map';a.textContent='開啟地圖';a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(m[6])+'&city='+encodeURIComponent('上海')+'&callnative=0';a.target='_blank';a.rel='noopener';mapCell.append(a);
+  const mapCell=document.createElement('td');const a=document.createElement('a');a.className='meal-map';a.textContent='地圖';a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(m[6])+'&city='+encodeURIComponent('上海')+'&callnative=0';a.target='_blank';a.rel='noopener';mapCell.append(a);
   tr.append(nameCell,dishesCell,mapCell);rows.append(tr);
  });
  function close(){modal.classList.remove('active')}
@@ -604,6 +604,42 @@ document.querySelectorAll('.foodrow').forEach(row=>{const name=row.textContent;c
  #sa-meal-modal .meal-choice-table .meal-hours{font-size:8px!important}
  #sa-meal-modal .meal-choice-table .meal-dishes{font-size:10px!important}
  #sa-meal-modal .meal-choice-table .meal-map{font-size:9px!important;padding:5px 2px!important}
+}
+</style>
+
+<style id="MEAL-PHONE-FIT-V11">
+/* 手機螢幕內完整呈現三欄，禁止表格或彈窗超出視窗 */
+#sa-meal-modal{position:fixed!important;inset:0!important;width:100vw!important;max-width:100vw!important;padding:0!important;box-sizing:border-box!important;overflow:hidden!important}
+#sa-meal-modal .meal-window{display:flex!important;flex-direction:column!important;width:100vw!important;max-width:100vw!important;min-width:0!important;height:92dvh!important;max-height:92dvh!important;margin:0!important;box-sizing:border-box!important;overflow:hidden!important;border-radius:14px 14px 0 0!important}
+#sa-meal-modal .meal-head,#sa-meal-modal .meal-intro{flex:0 0 auto!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+#sa-meal-modal .meal-scroll{display:block!important;flex:1 1 auto!important;min-width:0!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;overflow-x:hidden!important;overflow-y:auto!important;padding:0 5px 12px!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table{display:table!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;table-layout:fixed!important;border-collapse:collapse!important;box-sizing:border-box!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table > colgroup > col:nth-child(1){width:34%!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table > colgroup > col:nth-child(2){width:46%!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table > colgroup > col:nth-child(3){width:20%!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table > thead{display:table-header-group!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table > tbody{display:table-row-group!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table tr{display:table-row!important;width:auto!important;margin:0!important;padding:0!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table th,
+#sa-meal-modal .meal-scroll > table.meal-choice-table td{display:table-cell!important;width:auto!important;min-width:0!important;max-width:none!important;box-sizing:border-box!important;padding:7px 3px!important;vertical-align:top!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;hyphens:auto!important;font-size:10px!important;line-height:1.4!important}
+#sa-meal-modal .meal-scroll > table.meal-choice-table td:before{display:none!important;content:none!important}
+#sa-meal-modal .meal-choice-table .meal-place{display:block!important;font-size:11px!important;line-height:1.4!important;white-space:normal!important;overflow-wrap:anywhere!important}
+#sa-meal-modal .meal-choice-table .meal-area,
+#sa-meal-modal .meal-choice-table .meal-hours{display:block!important;margin-top:3px!important;font-size:9px!important;line-height:1.35!important;white-space:normal!important;overflow-wrap:anywhere!important}
+#sa-meal-modal .meal-choice-table .meal-dishes{display:block!important;font-size:10px!important;line-height:1.45!important;white-space:normal!important;overflow-wrap:anywhere!important}
+#sa-meal-modal .meal-choice-table .meal-map{display:inline-block!important;max-width:100%!important;box-sizing:border-box!important;padding:5px 3px!important;font-size:9px!important;line-height:1.3!important;white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important}
+@media(max-width:390px){
+ #sa-meal-modal .meal-head{padding:9px 10px!important}
+ #sa-meal-modal .meal-head strong{font-size:13px!important}
+ #sa-meal-modal .meal-intro{padding:6px 9px!important;font-size:10px!important}
+ #sa-meal-modal .meal-scroll{padding-left:3px!important;padding-right:3px!important}
+ #sa-meal-modal .meal-scroll > table.meal-choice-table th,
+ #sa-meal-modal .meal-scroll > table.meal-choice-table td{padding:6px 2px!important;font-size:9px!important}
+ #sa-meal-modal .meal-choice-table .meal-place{font-size:10px!important}
+ #sa-meal-modal .meal-choice-table .meal-area,
+ #sa-meal-modal .meal-choice-table .meal-hours{font-size:8px!important}
+ #sa-meal-modal .meal-choice-table .meal-dishes{font-size:9px!important}
+ #sa-meal-modal .meal-choice-table .meal-map{font-size:8px!important;padding:4px 2px!important}
 }
 </style>
 </body></html>
